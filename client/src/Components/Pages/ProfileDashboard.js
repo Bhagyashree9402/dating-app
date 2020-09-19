@@ -94,7 +94,7 @@ class ProfileDashboard extends React.Component {
           <input
             name="lastName"
             onChange={this.handleChange}
-            value={this.props.lastName}
+            value={this.props.last_name}
             size="8"
             style={{ fontSize: "24px", fontWeight: "bold" }}
           />

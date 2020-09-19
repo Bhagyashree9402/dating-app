@@ -25,9 +25,9 @@ router.get("/find", auth, (req, res) => {
     });
 });
 
-// router.get("/find/:id", (req, res) => {
-//   db.Profile.findById(req.params.id).then((profile) => res.send(profile));
-// });
+router.get("/findProfile/:id", (req, res) => {
+  db.Profile.findById(req.params.id).then((profile) => res.send(profile));
+});
 
 router.get("/discover", (req, res) => {
   db.Profile.find().then((profiles) => res.send(profiles));

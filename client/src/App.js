@@ -15,6 +15,7 @@ import RecoAlgo from "./RecoAlgorithm/RecoAlgo.js";
 
 import "./style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+
 let profileSet = [];
 let likesSet = [];
 export default function App() {
@@ -102,7 +103,7 @@ export default function App() {
 
   const updateLikesSet = (id) => {
     let newLikes = [];
-    Axios.get("/profile/find/" + id)
+    Axios.get("/profile/findProfile/" + id)
       .then((response) => {
         newLikes = response.data;
         let found = false;
