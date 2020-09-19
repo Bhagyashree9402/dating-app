@@ -2,13 +2,14 @@
   "name": "full_stack_template",
   "version": "1.0.0",
   "main": "server.js",
+  
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"nodemon server.js\" \"npm run client\"",
     "build": "cd client/ && npm install && npm run build",
-    "seed": "node seeders/seed2.js"
+    "seed": "node seeders/seed.js"
   },
   "keywords": [],
   "author": "",

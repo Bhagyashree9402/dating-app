@@ -4,8 +4,18 @@ import React from "react";
 
 // import UserContext from "../../context/UserContext";
 
+const style = {
+  background: "linear-gradient(45deg, #ED6570 30%, #F0CA77 90%)",
+  borderRadius: 3,
+  border: 0,
+  color: "white",
+  height: 48,
+  padding: "0 30px",
+  // boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+};
+
 class ProfileDashboard extends React.Component {
-  // state = {
+  // props = {
   //   first_name: this.props.first_name,
   //   last_name: this.props.last_name,
   //   mumble_email: this.props.mumble_email,
@@ -32,13 +42,14 @@ class ProfileDashboard extends React.Component {
   componentDidMount = () => {
     console.log(this.props);
   };
+
   handleChange = (event) => {
     event.preventDefault();
     this.setState({ [event.currentTarget.name]: event.currentTarget.value });
   };
 
   saveProfile = () => {
-    // console.log(this.state);
+    // console.log(this.props);
     const profileRec = {
       first_name: this.props.first_name,
       last_name: this.props.last_name,
@@ -81,18 +92,23 @@ class ProfileDashboard extends React.Component {
       <div className="proDashMargin">
         <h1>Profile</h1>
         <form className="centerForm">
-          <img src={this.props.profile_image} alt="" />
-          <span>Name</span>
+          <img
+            onChange={this.handleChange}
+            src={this.props.profile_image}
+            alt="profile"
+            style={{ marginBottom: "12px", borderRadius: "50px" }}
+          />
           <br />
+          <p>Name</p>
           <input
-            name="firstName"
+            name="first_name"
             onChange={this.handleChange}
             value={this.props.first_name}
             size="8"
             style={{ fontSize: "24px", fontWeight: "bold" }}
           />
           <input
-            name="lastName"
+            name="last_name"
             onChange={this.handleChange}
             value={this.props.last_name}
             size="8"
@@ -100,97 +116,84 @@ class ProfileDashboard extends React.Component {
           />
 
           {/* Age, Orientation, Gender */}
-          <br />
-          <span style={{ marginRight: "-5px" }}>I am a &nbsp;</span>
+          <p>Age</p>
           <input
             name="age"
             onChange={this.handleChange}
             value={this.props.age}
             size="2"
-            maxlength="2"
+            maxLength="2"
             style={{ marginRight: "2px" }}
           />
-          <span> year young &nbsp; </span>
-          {/* <input
-            name="orientation"
-            onChange={this.handleChange}
-            value={this.state.orientation}
-            size="8"
-          /> */}
+          <p> Gender </p>
           <input
-            name="gender"
+            name="sex"
             onChange={this.handleChange}
-            value={this.props.gender}
+            value={this.props.sex}
             size="8"
           />
-          <br />
-          <p>Height</p>
-          {/* <input
-            name="height"
-            onChange={this.handleChange}
-            value={this.state.height}
-            size="2"
-          /> */}
-          <p>Number </p>
-          <input
-            name="phone"
-            onChange={this.handleChange}
-            value={this.props.phone}
-            style={{ width: "auto" }}
-          />
-          <p>Location </p>
-          <input
-            name="location"
-            onChange={this.handleChange}
-            value={this.props.location}
-          />
-          <br />
-          <span>Orientation </span>
-          <input
-            name="orientation"
-            onChange={this.handleChange}
-            value={this.props.orientation}
-          />
-          <br />
-          <span>Ethnicity </span>
-          <input
-            name="ethnicity"
-            onChange={this.handleChange}
-            value={this.props.ethnicity}
-          />
-          <br />
-          <span>Height </span>
+          <p>Height (in) </p>
           <input
             name="height"
             onChange={this.handleChange}
             value={this.props.height}
             size="2"
           />
-          <br />
-          <span>Current Offspring </span>
+          <p>Body Type</p>
+          <input
+            name="body_type"
+            onChange={this.handleChange}
+            value={this.props.body_type}
+          />
+          {/* <p>Number </p>
+          <input
+            name="phone"
+            onChange={this.handleChange}
+            value={this.props.phone}
+            style={{ width: "auto" }}
+          /> */}
+          <p>Location </p>
+          <input
+            name="location"
+            onChange={this.handleChange}
+            value={this.props.location}
+          />
+          <p>Orientation </p>
+          <input
+            name="orientation"
+            onChange={this.handleChange}
+            value={this.props.orientation}
+          />
+          <p>Ethnicity </p>
+          <input
+            name="ethnicity"
+            onChange={this.handleChange}
+            value={this.props.ethnicity}
+          />
+          <p>Children </p>
           <input
             name="offspring"
             onChange={this.handleChange}
             value={this.props.offspring}
           />
-          <p>Want Offspring </p>
+          {/* <p>Want Offspring </p>
           <input
             name="wantOffspring"
             onChange={this.handleChange}
             value={this.props.wantOffspring}
-          />
-          <p>Have Pets </p>
+          /> */}
+          <p>Pets</p>
           <input
-            name="havePets"
+            name="pets"
             onChange={this.handleChange}
-            value={this.props.havePets}
+            value={this.props.pets}
           />
-          <p>Want Pets </p>
-          <input
+          {/* <p>Want Pets </p> */}
+          {/* <input
             name="wantPets"
             onChange={this.handleChange}
             value={this.props.wantPets}
-          />
+          /> */}
           <p>Education </p>
           <input
             name="education"
@@ -233,14 +236,21 @@ class ProfileDashboard extends React.Component {
             onChange={this.handleChange}
             value={this.props.smokes}
           />
+          <p>Status</p>
+          <input
+            name="status"
+            onChange={this.handleChange}
+            value={this.props.status}
+          />
         </form>
 
         <Button
           variant="contained"
-          color="primary"
+          // color="primary"
+
           disableElevation
           onClick={this.saveProfile}
-          style={{ textAlign: "center" }}
+          style={({ textAlign: "center" }, style)}
         >
           Save Profile
         </Button>

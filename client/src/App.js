@@ -68,6 +68,7 @@ export default function App() {
           Axios.get("/profile/discover").then((response) => {
             profileSet = [];
             profileSet = response.data;
+            profileSet.slice(0, 10);
             setProfileArray([...profileSet]);
           });
         } else {

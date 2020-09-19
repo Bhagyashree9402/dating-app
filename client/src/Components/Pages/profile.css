@@ -1,3 +1,9 @@
 #navArrows {
   justify-content: space-between;
+  /* position: fixed; */
+}
+
+Button:active {
+  background-color: #ec666f !important;
+  /* border-color: blue !important; */
 }

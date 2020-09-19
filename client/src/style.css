@@ -352,6 +352,7 @@ select:focus {
     background-color: transparent;
     font-size: 1.1rem;
   }
+
   .form input:focus {
     border: 1px solid #df4343;
     box-shadow: inset 0px 0px 10px goldenrod;
@@ -364,6 +365,7 @@ select:focus {
     border: radius 8;
     background-color: black;
     font-size: 1.1rem;
+    left: 50%;
   }
 
   .error-notice {

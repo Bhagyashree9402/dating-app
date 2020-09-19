@@ -97,13 +97,16 @@ export default function LabelBottomNavigation() {
       <BottomNavigationAction
         label="Likes"
         value="likes"
-        aria-controls="customized-menu"
-        aria-haspopup="true"
-        variant="contained"
+        // aria-controls="customized-menu"
+        // aria-haspopup="true"
+        // variant="contained"
         icon={<FavoriteIcon />}
-        onClick={handleClick}
+        component={Link}
+        to="/profile/likes"
+        // onClick={handleClick}
       />
-      <StyledMenu
+
+      {/* <StyledMenu
         id="customized-menu"
         anchorEl={anchorEl}
         keepMounted
@@ -118,8 +121,8 @@ export default function LabelBottomNavigation() {
         </StyledMenuItem>
         <StyledMenuItem>
           <ListItemText primary="Mutual Likes" />
-        </StyledMenuItem> */}
-      </StyledMenu>
+        </StyledMenuItem> 
+      </StyledMenu> */}
 
       <BottomNavigationAction
         label="Profile"
