@@ -91,6 +91,7 @@ const Discover = (props) => {
             <IconButton
               aria-label="add to favorites"
               onClick={(e) => {
+                console.log("discover pros child _id", props.children._id);
                 props.updateLikes(props.children._id);
               }}
               text="likes"

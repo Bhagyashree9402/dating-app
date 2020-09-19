@@ -46,7 +46,7 @@ export default function App() {
     };
     checkLoggedIn();
     retrieveAllPersons();
-    retrieveAllLikes();
+    // retrieveAllLikes();
   }, []);
 
   const retrieveAllPersons = () => {
@@ -62,7 +62,7 @@ export default function App() {
       // .get("/profile/find", token)
       //.then(({ data }) => {
       .then(({ data }) => {
-        console.log(data);
+        // console.log(data);
         if (!data) {
           console.log("this is no recommendation");
           Axios.get("/profile/discover").then((response) => {
@@ -90,36 +90,33 @@ export default function App() {
       .catch((err) => console.log(err));
   };
 
-  const retrieveAllLikes = () => {
-    Axios.get("/profile/likes")
-      .then((response) => {
-        likesSet = [];
-        likesSet = response.data;
-
-        setLikesArray([...likesSet]);
-      })
-      .catch((err) => console.log(err));
-  };
-
   const updateLikesSet = (id) => {
-    let newLikes = [];
-    Axios.get("/profile/findProfile/" + id)
-      .then((response) => {
-        newLikes = response.data;
-        let found = false;
-        likesArray.forEach((like) => {
-          if (like._id === newLikes._id) {
-            found = true;
-          }
-        });
-        if (!found) {
-          Axios.post("/profile/newlikes", newLikes)
-            .then(() => {
-              retrieveAllLikes();
-            })
-            .catch((err) => console.log(err));
-        }
-      })
+    const token = localStorage.getItem("auth-token");
+    Axios({
+      method: "POST",
+      url: "/profile/newlikes",
+      headers: { "x-auth-token": token },
+      data: { id: id },
+    })
+      .then((res) => console.log("from newLikes", res))
+      // let newLikes = [];
+      // Axios.get("/profile/findProfile/" + id)
+      //   .then((response) => {
+      //     newLikes = response.data;
+      //     let found = false;
+      //     likesArray.forEach((like) => {
+      //       if (like._id === newLikes._id) {
+      //         found = true;
+      //       }
+      //     });
+      //     if (!found) {
+      //       Axios.post("/profile/newlikes", newLikes)
+      //         .then(() => {
+      //           // retrieveAllLikes();
+      //         })
+      //         .catch((err) => console.log(err));
+      //     }
+      //   })
       .catch((err) => console.log(err));
   };
 
@@ -160,11 +157,12 @@ export default function App() {
                 </Discover>
               ))}
             </Route>
-            <Route exact path="/profile/likes">
+            <Route exact path="/profile/likes" component={LikesContainer} />
+            {/* <Route exact path="/profile/likes">
               {likesArray.map((likes, id) => (
                 <Likes key={id}>{likes}</Likes>
               ))}
-            </Route>
+            </Route> */}
           </Switch>
           <BottomNavigation />
         </UserContext.Provider>
@@ -172,3 +170,36 @@ export default function App() {
     </>
   );
 }
+
+const LikesContainer = () => {
+  const [likesArray, setLikesArray] = React.useState([]);
+
+  React.useEffect(() => {
+    const token = localStorage.getItem("auth-token");
+    const retrieveAllLikes = () => {
+      Axios({
+        method: "GET",
+        url: "/profile/likes",
+        headers: { "x-auth-token": token },
+      })
+        .then((response) => {
+          console.log(response.data);
+          // likesSet = [];
+          // likesSet = response.likes;
+
+          //setLikesArray([...likesSet]);
+          setLikesArray(response.data.likes);
+        })
+        .catch((err) => console.log(err.response));
+    };
+    retrieveAllLikes();
+  }, []);
+
+  return (
+    <div>
+      {likesArray.map((likes, id) => (
+        <Likes key={id}>{likes}</Likes>
+      ))}
+    </div>
+  );
+};

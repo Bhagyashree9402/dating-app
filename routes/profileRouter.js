@@ -33,12 +33,31 @@ router.get("/discover", (req, res) => {
   db.Profile.find().then((profiles) => res.send(profiles));
 });
 
-router.get("/likes", (req, res) => {
-  likesDb.LikesModel.find().then((likes) => res.send(likes));
+router.get("/likes", auth, (req, res) => {
+  db.Profile.findById(req.user)
+    .select("likes")
+    .populate({ path: "likes", select: "-likes -__v" })
+    .then((likes) => {
+      console.log(likes);
+      res.json(likes);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send("db err");
+    });
+  //likesDb.LikesModel.find().then((likes) => res.send(likes));
 });
 
-router.post("/newlikes", (req, res) => {
-  likesDb.LikesModel.create(req.body).then((likes) => res.send(likes));
+router.post("/newlikes", auth, (req, res) => {
+  db.Profile.findByIdAndUpdate(
+    req.user,
+    { $push: { likes: req.body.id } },
+    { new: true, upsert: true }
+  ).then((likes) => {
+    console.log(likes);
+    res.json(likes);
+  });
+  //likesDb.LikesModel.create(req.body).the:n((likes) => res.send(likes));
 });
 router.delete("/remove/:id", (req, res) => {
   db.Profile.findByIdAndRemove(req.params.id).then(() => res.send("success"));
